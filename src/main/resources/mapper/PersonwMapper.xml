@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.PersonwDao">
+
+  <select id="getAllPersonw" resultType="com.graduate.zry.bean.Person">
+    select * from Person
+    <if test="p_id!=null">
+      where p_id like #{p_id} and p_type = 1
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getPersonwCounts" resultType="java.lang.Integer">
+    select count(*) from Person
+    <if test="p_id!=null">
+      where p_id like #{p_id} and p_type = 1
+    </if>
+  </select>
+
+  <insert id="addPersonw" >
+    insert into Person (p_id, p_phone, morbidity, age, p_from, p_arrive, p_name, p_type)
+    values (#{p_id},#{p_phone},#{morbidity},#{age},#{p_from},#{p_arrive},#{p_name},1);
+  </insert>
+
+  <delete id="deletePersonw">
+    delete from Person where p_id=#{p_id}
+  </delete>
+
+  <select id="getUpdatePersonw" resultType="com.graduate.zry.bean.Person">
+    select * from Person where p_id=#{p_id}
+  </select>
+
+  <update id="editPersonw">
+    update Person set p_phone=#{p_phone},morbidity=#{morbidity},age=#{age},p_from=#{p_from},p_arrive=#{p_arrive},p_name=#{p_name} where p_id=#{p_id}
+  </update>
+
+</mapper>

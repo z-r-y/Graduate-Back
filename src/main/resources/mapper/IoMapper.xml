@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.IoDao">
+
+  <select id="getAllIo" resultType="com.graduate.zry.bean.Io">
+    select * from Io
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getIoCounts" resultType="java.lang.Integer">
+    select count(*) from Io
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <select id="getOneIo" resultType="java.lang.Integer">
+    select inport from io where id=#{id}
+  </select>
+
+  <select id="getOneOut" resultType="java.lang.Integer">
+    select outport from io where id=#{id}
+  </select>
+
+  <insert id="addIo" >
+    insert into Io (id, state, outport, out_time, inport, in_time, people, boss)
+    values (#{id},#{state},#{outport},#{out_time},#{inport},#{in_time},#{people},#{boss});
+  </insert>
+
+  <delete id="deleteIo">
+    delete from Io where id=#{id}
+  </delete>
+
+  <select id="getUpdateIo" resultType="com.graduate.zry.bean.Io">
+    select * from Io where id=#{id}
+  </select>
+
+  <update id="editIo">
+    update Io set state=#{state},outport=#{outport},out_time=#{out_time},inport=#{inport},in_time=#{in_time},people=#{people},boss=#{boss} WHERE id = #{id}
+  </update>
+
+  <update id="updateState">
+    UPDATE io SET state = #{state} WHERE id = #{id}
+  </update>
+
+</mapper>

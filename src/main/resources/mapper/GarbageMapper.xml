@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.GarbageDao">
+
+  <select id="getAllGarbage" resultType="com.graduate.zry.bean.Garbage">
+    select * from Garbage
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getGarbageCounts" resultType="java.lang.Integer">
+    select count(*) from Garbage
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <insert id="addGarbage" >
+    insert into Garbage (id, g_dt, water, goods, w_man, g_man)
+    values (#{id},#{g_dt},#{water},#{goods},#{w_man},#{g_man});
+  </insert>
+
+  <delete id="deleteGarbage">
+    delete from Garbage where id=#{id}
+  </delete>
+
+  <select id="getUpdateGarbage" resultType="com.graduate.zry.bean.Garbage">
+    select * from Garbage where id=#{id}
+  </select>
+
+  <update id="editGarbage">
+    update Garbage set g_dt=#{g_dt},water=#{water},goods=#{goods},w_man=#{w_man},g_man=#{g_man}
+  </update>
+
+</mapper>

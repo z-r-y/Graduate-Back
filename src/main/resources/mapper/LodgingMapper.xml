@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.LodgingDao">
+
+  <select id="getAllLodging" resultType="com.graduate.zry.bean.Lodging">
+    select * from Lodging
+    <if test="p_id!=null">
+      where p_id like #{p_id}
+      group by re_state,r_id
+      order by re_state desc,r_id ASC
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="bbb" resultType="com.graduate.zry.bean.Lodging">
+    select r_id, p_id, l_time from Lodging
+    where p_id=#{p_id}
+  </select>
+
+  <select id="getLodgingCounts" resultType="java.lang.Integer">
+    select count(*) from Lodging
+    <if test="p_id!=null">
+      where p_id like #{p_id}
+    </if>
+  </select>
+
+  <insert id="addLodging" >
+    insert into Lodging (r_id, p_id, l_time, re_state)
+    values (#{r_id},#{p_id},#{l_time},true);
+  </insert>
+
+  <delete id="deleteLodging">
+    delete from Lodging where p_id=#{p_id}
+  </delete>
+
+  <select id="getUpdateLodging" resultType="com.graduate.zry.bean.Lodging">
+    select * from Lodging where p_id=#{p_id}
+  </select>
+
+  <update id="editLodgin">
+    update Lodging set r_id=#{r_id},l_time=#{l_time},re_state=#{re_state} WHERE p_id = #{p_id}
+  </update>
+
+  <update id="updateState">
+    UPDATE lodging SET re_state = #{re_state} WHERE p_id = #{p_id}
+  </update>
+</mapper>

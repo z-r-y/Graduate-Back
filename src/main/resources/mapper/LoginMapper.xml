@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.LoginDao">
+  <select id="getLoginByMassage" resultType="com.graduate.zry.bean.Login">
+    select * from login where
+    id=#{id} and passwd=#{passwd};
+  </select>
+
+  <select id="getAllLogin" resultType="com.graduate.zry.bean.Login">
+    select * from login
+    <if test="id!=null">
+    where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getLoginCounts" resultType="java.lang.Integer">
+    select count(*) from login
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <update id="updateState">
+    UPDATE login SET state = #{state} WHERE id = #{id}
+  </update>
+
+  <insert id="addUser">
+    insert into login
+    (id,passwd,identity,state)
+    value
+    (#{id},#{passwd},#{identity},#{state})
+  </insert>
+
+  <delete id="deleteUser">
+    delete from login where id=#{id}
+  </delete>
+
+  <select id="getUpdateUser" resultType="com.graduate.zry.bean.Login">
+    select * from login where id=#{id}
+  </select>
+
+  <update id="editUser">
+    update login set passwd=#{passwd},identity=#{identity} where id=#{id}
+  </update>
+</mapper>

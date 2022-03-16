@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.GoodsDao">
+
+  <select id="getAllGoods" resultType="com.graduate.zry.bean.Goods">
+    select * from Goods
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getOneGoods" resultType="com.graduate.zry.bean.Goods">
+    select * from goods where id=#{id}
+  </select>
+
+  <select id="bbb" resultType="java.lang.Integer">
+    select many from goods where id=#{id}
+  </select>
+
+  <select id="getGoodsCounts" resultType="java.lang.Integer">
+    select count(*) from Goods
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <insert id="addGoods" >
+    insert into Goods (id, name, vendor, e_time, l_time, many, r_require, e_require, e_add)
+    values (#{id},#{name},#{vendor},#{e_time},#{l_time},#{many},#{r_require},#{e_require},#{e_add});
+      </insert>
+
+  <delete id="deleteGoods">
+    delete from Goods where id=#{id}
+  </delete>
+
+  <select id="getUpdateGoods" resultType="com.graduate.zry.bean.Goods">
+    select * from Goods where id=#{id}
+  </select>
+
+  <select id="aaa">
+    update goods set many=#{many} where id=#{id}
+  </select>
+
+  <update id="editGoods">
+    update Goods set name=#{name},vendor=#{vendor},e_time=#{e_time},l_time=#{l_time},many=#{many},r_require=#{r_require},e_require=#{e_require},e_add=#{e_add} where id=#{id}
+  </update>
+
+</mapper>

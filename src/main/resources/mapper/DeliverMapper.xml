@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.DeliverDao">
+
+  <select id="getAllDeliver" resultType="com.graduate.zry.bean.Deliver">
+    select * from deliver
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getDeliverCounts" resultType="java.lang.Integer">
+    select count(*) from deliver
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <insert id="addDeliver" >
+    insert into deliver (id,r_id,d_name,d_plantform,d_business)
+    values (#{id},#{r_id},#{d_name},#{d_plantform},#{d_business});
+  </insert>
+
+  <delete id="deleteDeliver">
+    delete from deliver where id=#{id}
+  </delete>
+
+  <select id="getUpdateDeliver" resultType="com.graduate.zry.bean.Deliver">
+    select * from deliver where id=#{id}
+  </select>
+
+  <update id="editDeliver">
+    update deliver set r_id=#{r_id},d_name=#{d_name},d_plantform=#{d_plantform},d_business=#{d_business} where id=#{id}
+  </update>
+
+</mapper>

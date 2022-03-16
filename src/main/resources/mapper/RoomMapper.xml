@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.RoomDao">
+
+  <select id="getAllRoom" resultType="com.graduate.zry.bean.Room">
+    select * from Room
+    <if test="r_id!=null">
+      where room.r_id like #{r_id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getRoomCounts" resultType="java.lang.Integer">
+    select count(*) from Room
+    <if test="r_id!=null">
+      where room.r_id like #{r_id}
+    </if>
+  </select>
+
+  <insert id="addRoom" >
+    insert into Room (r_id, r_state)
+    values (#{r_id},#{r_state});
+  </insert>
+
+  <delete id="deleteRoom">
+    delete from Room where r_id=#{r_id}
+  </delete>
+
+  <select id="getUpdateRoom" resultType="com.graduate.zry.bean.Room">
+    select * from Room where r_id=#{r_id}
+  </select>
+
+  <update id="editRoom">
+    update Room set r_state=#{r_state}
+  </update>
+
+  <update id="updateState">
+    UPDATE room SET r_state = #{r_state} WHERE r_id = #{r_id}
+  </update>
+</mapper>

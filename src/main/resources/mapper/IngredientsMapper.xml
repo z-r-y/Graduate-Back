@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.IngredientsDao">
+
+  <select id="getAllIngredients" resultType="com.graduate.zry.bean.Ingredients">
+    select * from Ingredients
+    <if test="i_name!=null">
+      where ingredients.i_name like #{i_name}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getIngredientsCounts" resultType="java.lang.Integer">
+    select count(*) from Ingredients
+    <if test="i_name!=null">
+      where ingredients.i_name like #{i_name}
+    </if>
+  </select>
+
+  <insert id="addIngredients" >
+    insert into Ingredients (i_name, i_vendor, i_address, i_price, i_many)
+    values (#{i_name},#{i_vendor},#{i_address},#{i_price},#{i_many});
+  </insert>
+
+  <delete id="deleteIngredients">
+    delete from ingredients where i_name=#{i_name}
+  </delete>
+
+  <select id="getUpdateIngredients" resultType="com.graduate.zry.bean.Ingredients">
+    select * from ingredients where i_name=#{i_name}
+  </select>
+
+  <update id="editIngredients">
+    update Ingredients set i_vendor=#{i_vendor},i_address=#{i_address},i_price=#{i_price},i_many=#{i_many} where i_name=#{i_name}
+  </update>
+
+</mapper>

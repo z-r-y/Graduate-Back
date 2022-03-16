@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.zry.dao.EnvironmentDao">
+
+  <select id="getAllEnvironment" resultType="com.graduate.zry.bean.Environment">
+    select * from Environment
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+    limit #{pageStart},#{pageSize}
+  </select>
+
+  <select id="getEnvironmentCounts" resultType="java.lang.Integer">
+    select count(*) from Environment
+    <if test="id!=null">
+      where id like #{id}
+    </if>
+  </select>
+
+  <insert id="addEnvironment" >
+    insert into Environment (id, e_dt, e_people, state, e_asss,wheree)
+    values (#{id},#{e_dt},#{e_people},#{state},#{e_asss},#{wheree});
+  </insert>
+
+  <delete id="deleteEnvironment">
+    delete from Environment where id=#{id}
+  </delete>
+
+  <select id="getUpdateEnvironment" resultType="com.graduate.zry.bean.Environment">
+    select * from Environment where id=#{id}
+  </select>
+
+  <update id="editEnvironment">
+    update Environment set e_dt=#{e_dt},e_people=#{e_people}, state=#{state}, e_asss=#{e_asss},wheree=#{wheree} where id=#{id}
+  </update>
+
+  <update id="updateState">
+    UPDATE Environment SET state = #{state} WHERE id = #{id}
+  </update>
+
+</mapper>
